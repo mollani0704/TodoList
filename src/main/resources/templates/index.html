@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://kit.fontawesome.com/0f941af2a1.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/static/style.css" />
+        <link rel="stylesheet" href="/static/index.css" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="container">
+            <header></header>
+            <main>
+                <section class="section__header">
+                    <div class="type__select">
+                        <div class="type__select__box">
+                            <div class="selected__type">ALL</div>
+                            <button class="selected__type__button">
+                                <i class="fa-solid fa-caret-down"></i>
+                            </button>
+                        </div>
+                        <ul class="type__select__boxList visible">
+                            <li class="type__selected">All</li>
+                            <li>Importance</li>
+                            <li>Complete</li>
+                            <li>Incomplete</li>
+                        </ul>
+                    </div>
+                    <div class="incomplete__count__text">완료하지 않은 일: <span class="incomplete__count__number">14</span></div>
+                </section>
+                <section class="section__body">
+                    <ul class="todo__content__list">
+                        <li class="todo__content">
+                            <input type="checkbox" id="complete__check-1" class="complete__check checked" />
+                            <label for="complete__check-1"></label>
+                            <div class="todo__content__text">스프링부트 기초 공부</div>
+                            <input type="text" class="todo__content__input visible" value="스프링부트 기초 공부" />
+                            <input type="checkbox" id="importance__check-1" class="importance__check checked" />
+                            <label for="importance__check-1"></label>
+                            <div class="trash__button"><i class="fa-solid fa-trash"></i></div>
+                        </li>
+                    </ul>
+                    <div class="todo__add__button"><i class="fa-solid fa-plus"></i></div>
+                </section>
+            </main>
+        </div>
+    </body>
+</html>
