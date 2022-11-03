@@ -1,9 +1,13 @@
 package com.study.todo.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.study.todo.domain.Todo;
 import com.study.todo.domain.TodoRepository;
+import com.study.todo.web.controller.dto.todo.CreateTodoReqDto;
 import com.study.todo.web.controller.dto.todo.TodoListRespDto;
 
 import lombok.RequiredArgsConstructor;
@@ -15,11 +19,23 @@ public class TodoServiceImpl implements TodoService{
 	private final TodoRepository todoRepository;
 	
 	@Override
-	public TodoListRespDto getTodoList(String type) throws Exception {
+	public List<TodoListRespDto> getTodoList(String type) throws Exception {
 		
-		Todo todoList = todoRepository.getTodoList(type);
+		List<TodoListRespDto> todoList = new ArrayList<TodoListRespDto>();
+		List<Todo> todoContents = todoRepository.getTodoList(type);
 		
-		return todoList.toRespDto();
+		todoContents.forEach(data -> {
+			todoList.add(data.toRespDto());
+		});
+		
+		
+		return todoList;
+	}
+
+	@Override
+	public boolean addTodo(CreateTodoReqDto createTodoReqDto) throws Exception {
+		
+		return todoRepository.addTodo(createTodoReqDto.toEntity()) > 0;
 	}
 
 }

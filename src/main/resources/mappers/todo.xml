@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.study.todo.domain.TodoRepository">
-  	
+  		
   	<select id="getTodoList" parameterType="String" resultType="com.study.todo.domain.Todo">
   		
   		select
@@ -17,5 +17,18 @@
   			todo_mst
   	
   	</select>
+  	
+  	<insert id="addTodo" parameterType="com.study.todo.domain.Todo" >
+  		insert into
+  			todo_mst
+  		values(
+  			0, 
+  			"${todo_content}",
+  			0,
+  			${importance_flag},
+  			now(),
+  			now()
+  		)
+  	</insert>
   
   </mapper>
