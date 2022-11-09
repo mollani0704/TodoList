@@ -38,4 +38,10 @@ public class TodoServiceImpl implements TodoService{
 		return todoRepository.addTodo(createTodoReqDto.toEntity()) > 0;
 	}
 
+	@Override
+	public boolean updateTodoComplete(int todoCode) throws Exception {
+		
+		return todoRepository.updateTodoComplete(todoCode) > 0;
+	}
+
 }

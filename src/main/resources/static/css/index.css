@@ -98,7 +98,6 @@ main {
 }
 
 .type__select__boxList {
-    display: none;
 
     position: absolute;
     top: 30px;

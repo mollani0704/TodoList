@@ -8,5 +8,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface TodoRepository {
 
 	public List<Todo> getTodoList(String type) throws Exception;
+	
 	public int addTodo(Todo todo) throws Exception; 
+	
+	public int updateTodoComplete(int todo_code) throws Exception;
 }

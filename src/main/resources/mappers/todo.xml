@@ -30,5 +30,16 @@
   			now()
   		)
   	</insert>
+  	
+  	<update id="updateTodoComplete" parameterType="Integer">
+  		
+  		UPDATE
+  			todo_mst
+  		SET
+  			todo_complete = case when todo_complete = '0' then 1 ELSE 0 end
+  		WHERE
+  			todo_code = #{todo_code};
+  	
+  	</update>
   
   </mapper>
