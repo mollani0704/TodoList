@@ -19,6 +19,8 @@ public class Todo {
 	private String todo_content;
 	private int todo_complete;
 	private int importance_flag;
+	private int total_count;
+	private int incomplete_count;
 	private Date create_date;
 	private Date update_date;
 	
@@ -26,8 +28,10 @@ public class Todo {
 		return TodoListRespDto.builder()
 					.todoCode(todo_code)
 					.todoContent(todo_content)
-					.todoComplete(todo_complete)
-					.importanceFlag(importance_flag)
+					.todoComplete(todo_complete == 1)
+					.importanceFlag(importance_flag == 1)
+					.totalCount(total_count)
+					.incompleteCount(incomplete_count)
 					.createDate(create_date)
 					.updateDate(update_date)
 					.build();

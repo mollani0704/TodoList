@@ -14,8 +14,10 @@ import lombok.NoArgsConstructor;
 public class TodoListRespDto {
 	private int todoCode;
 	private String todoContent;
-	private int todoComplete;
-	private int importanceFlag;
+	private boolean todoComplete;
+	private boolean importanceFlag;
+	private int totalCount;
+	private int incompleteCount;
 	private Date createDate;
 	private Date updateDate;
 }

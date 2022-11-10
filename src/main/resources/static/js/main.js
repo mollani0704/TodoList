@@ -44,11 +44,11 @@ function createList(todoList) {
         const listContent = `
 			
 			<li class="todo__content">
-	           <input type="checkbox" id="complete__check-${content.todoCode}" class="complete__check ${content.todo_complete ? 'checked' : ''}" />
+	           <input type="checkbox" id="complete__check-${content.todoCode}" class="complete__check" ${content.todoComplete ? 'checked' : ''} />
 	           <label for="complete__check-${content.todoCode}"></label>
 	           <div class="todo__content__text">${content.todoContent}</div>
 	           <input type="text" class="todo__content__input visible" value="${content.todoContent}" />
-	           <input type="checkbox" id="importance__check-${content.todoCode}" class="importance__check ${content.importance ? 'checked' : ''}" />
+	           <input type="checkbox" id="importance__check-${content.todoCode}" class="importance__check" ${content.importanceFlag ? 'checked' : ''} />
 	           <label for="importance__check-${content.todoCode}"></label>
 	           <div class="trash__button"><i class="fa-solid fa-trash"></i></div>
 	         </li>
@@ -146,6 +146,10 @@ function removeAllClassList(elements, className) {
 	}
 }
 
+function setIncompleteCount(incompleteCount) {
+	inCompleteCountNumber.textContent = incompleteCount;
+}
+
 load();
 
 //============요청============//
@@ -190,6 +194,8 @@ function load() {
         dataType: 'json',
         success: response => {
             console.log(response.data);
+            
+            setIncompleteCount(response.data[0].incompleteCount);
             createList(response.data);
         },
 
