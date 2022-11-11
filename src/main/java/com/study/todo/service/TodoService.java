@@ -15,4 +15,8 @@ public interface TodoService {
  	
 	//수정
 	public boolean updateTodoComplete(int todoCode) throws Exception;
+	public boolean updateTodoImportance(int todoCode) throws Exception;
+	
+	//삭제
+	public boolean deleteTodo(int todoCode) throws Exception;
 }

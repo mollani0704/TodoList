@@ -12,4 +12,7 @@ public interface TodoRepository {
 	public int addTodo(Todo todo) throws Exception; 
 	
 	public int updateTodoComplete(int todo_code) throws Exception;
+	public int updateTodoImportance(int todo_code) throws Exception;
+	
+	public int deleteTodo(int todo_code) throws Exception;
 }

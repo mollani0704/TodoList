@@ -44,4 +44,16 @@ public class TodoServiceImpl implements TodoService{
 		return todoRepository.updateTodoComplete(todoCode) > 0;
 	}
 
+	@Override
+	public boolean updateTodoImportance(int todoCode) throws Exception {
+		
+		return todoRepository.updateTodoImportance(todoCode) > 0;
+	}
+
+	@Override
+	public boolean deleteTodo(int todoCode) throws Exception {
+		
+		return todoRepository.deleteTodo(todoCode) > 0; 
+	}
+
 }

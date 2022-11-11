@@ -1,7 +1,6 @@
 const todoContentList = document.querySelector('.todo__content__list');
 const todoAddButton = document.querySelector('.todo__add__button');
 const modalContainer = document.querySelector('.modal__container');
-const deleteButton = document.querySelector('.trash__button');
 const inCompleteCountNumber = document.querySelector(".incomplete__count__number");
 const selectedTypeButton = document.querySelector(".selected__type__button");
 const typeSelectBoxList = document.querySelector(".type__select__boxList");
@@ -10,6 +9,8 @@ const selectedType = document.querySelector(".selected__type");
 
 let listType = 'all';
 
+
+//=============<<  todolist 추가  >>===============
 todoAddButton.onclick = () => {
     modalContainer.classList.toggle('modal-visible');
     todoContentList.style.overflow = 'hidden';
@@ -36,8 +37,12 @@ function setModalEvent() {
         };
 
         addTodo(data);
+        
+        modalContainer.classList.toggle('modal-visible');
     };
 }
+
+//======<<  todoList 목록에 관한 이벤트들  >>===========
 
 function createList(todoList) {
     for (content of todoList) {
@@ -58,15 +63,21 @@ function createList(todoList) {
     
     addEvent();
 }
+
+function appendList(listContent) {
+    todoContentList.innerHTML += listContent;
+}
  
 function addEvent() {
 	
 	const todoContents = document.querySelectorAll(".todo__content");
 	
 	for(let todoContent of todoContents) {
-		const todoCode = subStringTodoCode(todoContent);
+		const todoCode = getTodoCode(todoContent);
 		
 		addCompleteEvent(todoContent, todoCode);
+		addImportanceEvent(todoContent, todoCode);
+		addDeleteEvent(todoContent, todoCode);
 	}
 	
 }
@@ -87,6 +98,23 @@ function addCompleteEvent(todoContent, todoCode) {
 	}
 }
 
+function addImportanceEvent(todoContent, todoCode) {
+	const importanceCheck = todoContent.querySelector(".importance__check");
+	
+	importanceCheck.onchange = () => {
+		updateCheckStatus("importance", todoContent, todoCode);
+	}
+}
+
+function addDeleteEvent(todoContent, todoCode) {
+	const deleteButton = todoContent.querySelector(".trash__button");
+	
+	deleteButton.onclick = () => {
+		console.log("test");
+		deleteTodo(todoContent,todoCode);
+	}
+}
+
 function updateCheckStatus(type, todoContent, todoCode) {
 	
 	let result = updateStatus(type, todoCode);
@@ -99,7 +127,7 @@ function updateCheckStatus(type, todoContent, todoCode) {
 	
 }
 
-function subStringTodoCode(todoContent) {
+function getTodoCode(todoContent) {
 	const completeCheck = todoContent.querySelector(".complete__check");
 	
 	const todoCode = completeCheck.getAttribute("id");
@@ -108,10 +136,7 @@ function subStringTodoCode(todoContent) {
 	return todoCode.substring(tokenindex + 1);
 }
 
-function appendList(listContent) {
-    todoContentList.innerHTML += listContent;
-}
-
+//========<< complete, incomplete, importance 타입 변경 이벤트들 >>======
 selectedTypeButton.onclick = () => {
 	typeSelectBoxList.classList.toggle("visible");
 }
@@ -185,6 +210,25 @@ function updateStatus(type, todoCode) {
 		erorr: errorMessage
 	})
 	return result;
+}
+
+function deleteTodo(todoContent,todoCode) {
+	
+	$.ajax({
+		type: "delete",
+		url: `/api/v1/todo/${todoCode}`,
+		async: false,
+		dataType: "json",
+		success: (response) => {
+			console.log(response.data);
+			if(response.data) {
+				todoContentList.removeChild(todoContent);
+			}
+		},
+		
+		error: errorMessage
+	})
+	
 }
 
 function load() {
