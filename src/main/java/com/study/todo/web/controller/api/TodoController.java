@@ -17,6 +17,7 @@ import com.study.todo.service.TodoService;
 import com.study.todo.web.controller.dto.CMRespDto;
 import com.study.todo.web.controller.dto.todo.CreateTodoReqDto;
 import com.study.todo.web.controller.dto.todo.TodoListRespDto;
+import com.study.todo.web.controller.dto.todo.UpdateTodoReqDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -40,6 +41,21 @@ public class TodoController {
 		}
 		
 		return ResponseEntity.ok().body(new CMRespDto<>(1, "todolist 삭제 성공", status));
+	}
+	
+	@PutMapping("/{todoCode}")
+	public ResponseEntity<?> setTodo(@RequestBody UpdateTodoReqDto updateTodoReqDto) {
+		
+		boolean status = false;
+		
+		try {
+			status = todoService.updateTodoContent(updateTodoReqDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.internalServerError().body(new CMRespDto<>(-1, "todoContent 내용 변경 실패", status));
+		}
+		
+		return ResponseEntity.ok().body(new CMRespDto<>(1, "todoContent 내용 변경 성공", status));
 	}
 	
 	@PutMapping("/importance/{todoCode}")
@@ -88,12 +104,12 @@ public class TodoController {
 	}
 	
 	@GetMapping("/list/{type}")
-	public ResponseEntity<?> getTodoList(@PathVariable String type) {
+	public ResponseEntity<?> getTodoList(@PathVariable String type, @RequestParam int page, @RequestParam int contentCount) {
 		
 		List<TodoListRespDto> list = null;
 		
 		try {
-			list = todoService.getTodoList(type);
+			list = todoService.getTodoList(type, page, contentCount);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.internalServerError().body(new CMRespDto<>(-1, "데이터 불러오기 실패", list));

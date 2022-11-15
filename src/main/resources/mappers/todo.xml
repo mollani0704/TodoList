@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.study.todo.domain.TodoRepository">
   		
-  	<select id="getTodoList" parameterType="String" resultType="com.study.todo.domain.Todo">
+  	<select id="getTodoList" parameterType="HashMap" resultType="com.study.todo.domain.Todo">
   		
   		select
   			tm.todo_code,
@@ -67,7 +67,8 @@
   				</otherwise>
   			</choose>
   		order by 
-  			todo_code desc;
+  			todo_code desc
+  		limit #{index}, #{count};
   	
   	</select>
   	
@@ -106,6 +107,17 @@
   		
   	</update>
   	
+  	<update id="updateTodoContent" parameterType="com.study.todo.domain.Todo">
+  	
+  		UPDATE
+  			todo_mst
+  		SET
+  			todo_content = #{todo_content}
+  		where
+  			todo_code = #{todo_code};
+  	
+  	</update>
+  		
   	<delete id="deleteTodo" parameterType="Integer">
   	
   		DELETE
